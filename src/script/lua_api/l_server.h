@@ -112,6 +112,9 @@ private:
 	// register_async_dofile(path)
 	static int l_register_async_dofile(lua_State *L);
 
+	// register_custom_control(category, control_name, default_keybind)
+	static int l_register_custom_control(lua_State *L);
+
 	// serialize_roundtrip(obj)
 	static int l_serialize_roundtrip(lua_State *L);
 

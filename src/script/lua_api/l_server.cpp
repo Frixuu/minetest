@@ -572,6 +572,25 @@ int ModApiServer::l_register_async_dofile(lua_State *L)
 	return 1;
 }
 
+// register_custom_control(category, control_name, default_keybind)
+int ModApiServer::l_register_custom_control(lua_State *L)
+{
+	NO_MAP_LOCK_REQUIRED;
+
+	luaL_checktype(L, 1, LUA_TSTRING);
+	luaL_checktype(L, 2, LUA_TSTRING);
+	std::string category = readParam<std::string>(L, 1);
+	std::string control_name = readParam<std::string>(L, 2);
+	std::string default_keybind;
+	if (lua_isstring(L, 3))
+		default_keybind = readParam<std::string>(L, 3);
+
+	Server *server = getServer(L);
+
+	lua_pushboolean(L, true);
+	return 1;
+}
+
 // serialize_roundtrip(value)
 // Meant for unit testing the packer from Lua
 int ModApiServer::l_serialize_roundtrip(lua_State *L)
@@ -633,6 +652,8 @@ void ModApiServer::Initialize(lua_State *L, int top)
 	API_FCT(do_async_callback);
 	API_FCT(register_async_dofile);
 	API_FCT(serialize_roundtrip);
+
+	API_FCT(register_custom_control);
 }
 
 void ModApiServer::InitializeAsync(lua_State *L, int top)
