@@ -27,6 +27,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 #include <vector>
 #include <unordered_set>
 #include "clientobject.h"
+#include "custom_controls.h"
 #include "gamedef.h"
 #include "inventorymanager.h"
 #include "localplayer.h"
@@ -64,6 +65,8 @@ class Minimap;
 struct MinimapMapblock;
 class Camera;
 class NetworkPacket;
+class ClientCustomControlManager;
+
 namespace con {
 class Connection;
 }
@@ -607,4 +610,6 @@ private:
 	u32 m_csm_restriction_noderange = 8;
 
 	std::unique_ptr<ModChannelMgr> m_modchannel_mgr;
+
+	std::unique_ptr<ClientCustomControlManager> m_custom_controls;
 };

@@ -19,6 +19,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 
 #pragma once
 
+#include "../custom_controls.h"
 #include "irrlichttypes.h"
 #include "Keycodes.h"
 #include <IEventReceiver.h>
@@ -45,6 +46,8 @@ public:
 	const char *name() const;
 
 protected:
+	friend class ClientCustomControlManager;
+
 	static bool valid_kcode(irr::EKEY_CODE k)
 	{
 		return k > 0 && k < irr::KEY_KEY_CODES_COUNT;

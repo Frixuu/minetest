@@ -19,7 +19,10 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 
 #pragma once
 
+#include "client/client.h"
+#include "client/keycode.h"
 #include "server.h"
+#include <map>
 #include <string>
 #include <unordered_map>
 #include <vector>
@@ -35,7 +38,7 @@ struct CustomControlDefinition
 	std::string default_bind_controller;
 };
 
-class ServerCustomControlManager
+class ServerCustomControlManager final
 {
 public:
 	bool isBaked();
@@ -47,4 +50,14 @@ private:
 	std::vector<CustomControlDefinition> m_definitions;
 	bool m_baked = false;
 	void bakeDefinitions();
+};
+
+class ClientCustomControlManager final
+{
+private:
+	friend class Client;
+	std::vector<CustomControlDefinition> m_definitions_by_index;
+	std::map<KeyPress, size_t> m_indices_by_event;
+	void clear(size_t hint = 0);
+	void pushDefinition(CustomControlDefinition definition);
 };

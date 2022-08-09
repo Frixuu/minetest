@@ -255,6 +255,16 @@ struct table_key lookup_keyname(const char *name)
 	throw UnknownKeycode(name);
 }
 
+struct table_key lookup_key_by_lang_name(const char *name)
+{
+	for (const auto &table_key : table) {
+		if (strcmp(table_key.LangName, name) == 0)
+			return table_key;
+	}
+
+	throw UnknownKeycode(name);
+}
+
 struct table_key lookup_keykey(irr::EKEY_CODE key)
 {
 	for (const auto &table_key : table) {
@@ -288,6 +298,17 @@ KeyPress::KeyPress(const char *name)
 		return;
 	}
 
+	// First, let's try to match the key by it's human readable name
+	try {
+		struct table_key k = lookup_key_by_lang_name(name);
+		m_name = name;
+		Key = k.Key;
+		Char = k.Char;
+		return;
+	} catch (UnknownKeycode &e) {
+		// 
+	};
+
 	if (strlen(name) <= 4) {
 		// Lookup by resulting character
 		int chars_read = mbtowc(&Char, name, 1);
@@ -306,7 +327,9 @@ KeyPress::KeyPress(const char *name)
 			Key = k.Key;
 			Char = k.Char;
 			return;
-		} catch (UnknownKeycode &e) {};
+		} catch (UnknownKeycode &e) {
+
+		};
 	}
 
 	// It's not a known key, complain and try to do something

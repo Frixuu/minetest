@@ -127,7 +127,8 @@ Client::Client(
 	m_media_downloader(new ClientMediaDownloader()),
 	m_state(LC_Created),
 	m_game_ui(game_ui),
-	m_modchannel_mgr(new ModChannelMgr())
+	m_modchannel_mgr(new ModChannelMgr()),
+	m_custom_controls(std::make_unique<ClientCustomControlManager>())
 {
 	// Add local player
 	m_env.setLocalPlayer(new LocalPlayer(this, playername));

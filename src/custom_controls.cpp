@@ -18,6 +18,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 */
 
 #include "custom_controls.h"
+#include "client/keycode.h"
 #include <string>
 #include <utility>
 
@@ -29,6 +30,9 @@ bool ServerCustomControlManager::isBaked()
 bool ServerCustomControlManager::tryRegister(CustomControlDefinition definition)
 {
 	if (isBaked())
+		return false;
+
+	if (m_definitions_unbaked.size() >= 60000)
 		return false;
 
 	std::string name = definition.name;
@@ -48,4 +52,22 @@ void ServerCustomControlManager::bakeDefinitions()
 	m_definitions_unbaked.clear();
 	m_baked = true;
 	verbosestream << "Baked " << m_definitions.size() << " control definition(s)" << std::endl;
+}
+
+void ClientCustomControlManager::clear(size_t hint = 0)
+{
+	m_indices_by_event.clear();
+	m_definitions_by_index.clear();
+	m_definitions_by_index.reserve(hint);
+}
+
+void ClientCustomControlManager::pushDefinition(CustomControlDefinition definition)
+{
+	m_definitions_by_index.push_back(definition);
+	if (!definition.default_bind_kbm.empty()) {
+		KeyPress kp(definition.default_bind_kbm.c_str());
+		if (!kp.m_name.empty()) {
+			m_indices_by_event[kp] = m_definitions_by_index.size() - 1;
+		}
+	}
 }

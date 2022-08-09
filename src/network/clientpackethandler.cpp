@@ -22,6 +22,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 #include "util/base64.h"
 #include "client/camera.h"
 #include "chatmessage.h"
+#include "custom_controls.h"
 #include "client/clientmedia.h"
 #include "log.h"
 #include "map.h"
@@ -1770,19 +1771,21 @@ void Client::handleCommand_SetCustomControlDefs(NetworkPacket *pkt)
 {
 	u16 count;
 	*pkt >> count;
+	m_custom_controls->clear(count);
 	infostream << "Server sent " << count << " custom control definitions" << std::endl;
 
 	for (u16 i = 0; i < count; i++) {
 
+		CustomControlDefinition definition{};
+
 		u8 reserved;
 		*pkt >> reserved;
 
-		std::string name, title, category, description;
-		*pkt >> name >> title >> category >> description;
+		*pkt >> definition.name;
+		*pkt >> definition.title >> definition.category >> definition.description;
+		*pkt >> definition.default_bind_kbm >> definition.default_bind_controller;
 
-		std::string default_bind_kbm, default_bind_controller;
-		*pkt >> default_bind_kbm >> default_bind_controller;
-
-		infostream << (i + 1) << ") " << name << std::endl;
+		infostream << (i + 1) << ") " << definition.name << std::endl;
+		m_custom_controls->pushDefinition(definition);
 	}
 }

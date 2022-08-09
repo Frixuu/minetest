@@ -5,7 +5,6 @@ minetest.register_custom_control("testcustomcontrols:launch", {
 	category = S("Cool stuff"),
 	description = S("Launches you into the air."),
 	default_binds = {
-		kbm = "Left Ctrl",
-		controller = "LB"
+		kbm = "Left Control",
 	}
 })
