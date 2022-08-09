@@ -75,6 +75,7 @@ class ServerThread;
 class ServerModManager;
 class ServerInventoryManager;
 struct PackedValue;
+class ServerCustomControlManager;
 
 enum ClientDeletionReason {
 	CDR_LEAVE,
@@ -472,6 +473,7 @@ private:
 	void SendCloudParams(session_t peer_id, const CloudParams &params);
 	void SendOverrideDayNightRatio(session_t peer_id, bool do_override, float ratio);
 	void SendSetLighting(session_t peer_id, const Lighting &lighting);
+	void SendCustomControlDefs(session_t peer_id);
 	void broadcastModChannelMessage(const std::string &channel,
 			const std::string &message, session_t from_peer);
 

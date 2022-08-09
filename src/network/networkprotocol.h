@@ -832,7 +832,20 @@ enum ToClientCommand
 		f32 shadow_intensity
 	*/
 
-	TOCLIENT_NUM_MSG_TYPES = 0x64,
+	TOCLIENT_SEND_CUSTOM_CONTROL_DEFS = 0x64,
+	/*
+		u16 count // of definitions
+		for each definition
+			u8 reserved (option bitmask)
+			std::string name
+			std::string title
+			std::string category
+			std::string description
+			std::string default_bind_kbm
+			std::string default_bind_controller
+	*/
+
+	TOCLIENT_NUM_MSG_TYPES = 0x65,
 };
 
 enum ToServerCommand

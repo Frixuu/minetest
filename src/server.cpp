@@ -1887,6 +1887,26 @@ void Server::SendSetLighting(session_t peer_id, const Lighting &lighting)
 	Send(&pkt);
 }
 
+void Server::SendCustomControlDefs(session_t peer_id)
+{
+	NetworkPacket pkt(TOCLIENT_SEND_CUSTOM_CONTROL_DEFS, 0, peer_id);
+
+	auto &definitions = m_custom_controls->m_definitions;
+	pkt << static_cast<u16>(definitions.size());
+
+	for (const auto& definition : definitions) {
+		pkt << static_cast<u8>(0); // reserved
+		pkt << definition.name
+			<< definition.title
+			<< definition.category
+			<< definition.description
+			<< definition.default_bind_kbm
+			<< definition.default_bind_controller;
+	}
+
+	Send(&pkt);
+}
+
 void Server::SendTimeOfDay(session_t peer_id, u16 time, f32 time_speed)
 {
 	NetworkPacket pkt(TOCLIENT_TIME_OF_DAY, 0, peer_id);

@@ -38,7 +38,8 @@ bool ServerCustomControlManager::tryRegister(CustomControlDefinition definition)
 
 void ServerCustomControlManager::bakeDefinitions()
 {
-	m_definitions.reserve(m_definitions_unbaked.size());
+	size_t definition_count = m_definitions_unbaked.size();
+	m_definitions.reserve(definition_count);
 
 	for (auto &entry : m_definitions_unbaked) {
 		m_definitions.push_back(entry.second);
@@ -46,4 +47,5 @@ void ServerCustomControlManager::bakeDefinitions()
 
 	m_definitions_unbaked.clear();
 	m_baked = true;
+	verbosestream << "Baked " << m_definitions.size() << " control definition(s)" << std::endl;
 }

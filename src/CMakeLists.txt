@@ -349,6 +349,7 @@ set(common_SRCS
 	content_nodemeta.cpp
 	convert_json.cpp
 	craftdef.cpp
+	custom_controls.cpp
 	debug.cpp
 	defaultsettings.cpp
 	emerge.cpp

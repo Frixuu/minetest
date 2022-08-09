@@ -339,6 +339,9 @@ void Server::handleCommand_Init2(NetworkPacket* pkt)
 	// Send player movement settings
 	SendMovement(peer_id);
 
+	// Set modded controls
+	SendCustomControlDefs(peer_id);
+
 	// Send time of day
 	u16 time = m_env->getTimeOfDay();
 	float time_speed = g_settings->getFloat("time_speed");

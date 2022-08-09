@@ -1765,3 +1765,24 @@ void Client::handleCommand_SetLighting(NetworkPacket *pkt)
 	if (pkt->getRemainingBytes() >= 4)
 		*pkt >> lighting.shadow_intensity;
 }
+
+void Client::handleCommand_SetCustomControlDefs(NetworkPacket *pkt)
+{
+	u16 count;
+	*pkt >> count;
+	infostream << "Server sent " << count << " custom control definitions" << std::endl;
+
+	for (u16 i = 0; i < count; i++) {
+
+		u8 reserved;
+		*pkt >> reserved;
+
+		std::string name, title, category, description;
+		*pkt >> name >> title >> category >> description;
+
+		std::string default_bind_kbm, default_bind_controller;
+		*pkt >> default_bind_kbm >> default_bind_controller;
+
+		infostream << (i + 1) << ") " << name << std::endl;
+	}
+}
