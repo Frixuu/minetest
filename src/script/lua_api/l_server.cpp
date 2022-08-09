@@ -27,6 +27,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 #include "scripting_server.h"
 #include "server.h"
 #include "environment.h"
+#include "custom_controls.h"
 #include "remoteplayer.h"
 #include "log.h"
 #include <algorithm>
@@ -572,21 +573,33 @@ int ModApiServer::l_register_async_dofile(lua_State *L)
 	return 1;
 }
 
-// register_custom_control(category, control_name, default_keybind)
+// register_custom_control(name, [options]) -> success
 int ModApiServer::l_register_custom_control(lua_State *L)
 {
 	NO_MAP_LOCK_REQUIRED;
 
-	luaL_checktype(L, 1, LUA_TSTRING);
-	luaL_checktype(L, 2, LUA_TSTRING);
-	std::string category = readParam<std::string>(L, 1);
-	std::string control_name = readParam<std::string>(L, 2);
-	std::string default_keybind;
-	if (lua_isstring(L, 3))
-		default_keybind = readParam<std::string>(L, 3);
-
 	Server *server = getServer(L);
+	if (server->m_custom_controls->isBaked())
+		throw new LuaError("Cannot modify custom controls after the server has started");
 
+	luaL_checktype(L, 1, LUA_TSTRING);
+	CustomControlDefinition definition{};
+	definition.name = readParam<std::string>(L, 1);
+
+	if (lua_istable(L, 2)) {
+		getstringfield(L, 2, "title", definition.title);
+		getstringfield(L, 2, "category", definition.category);
+		getstringfield(L, 2, "description", definition.description);
+
+		lua_getfield(L, 2, "default_binds");
+		getstringfield(L, -1, "kbm", definition.default_bind_kbm);
+		getstringfield(L, -1, "controller", definition.default_bind_controller);
+	}
+
+	if (!server->m_custom_controls->tryRegister(definition))
+		throw new LuaError("Could not register control definition (is name already registered?)");
+
+	lua_settop(L, 0);
 	lua_pushboolean(L, true);
 	return 1;
 }

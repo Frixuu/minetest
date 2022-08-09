@@ -62,6 +62,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 #include "database/database.h"
 #include "chatmessage.h"
 #include "chat_interface.h"
+#include "custom_controls.h"
 #include "remoteplayer.h"
 #include "server/player_sao.h"
 #include "server/serverinventorymgr.h"
@@ -419,6 +420,9 @@ void Server::init()
 	std::string ban_path = m_path_world + DIR_DELIM "ipban.txt";
 	m_banmanager = new BanManager(ban_path);
 
+	// Create custom control manager
+	m_custom_controls = std::make_unique<ServerCustomControlManager>();
+
 	// Create mod storage database and begin a save for later
 	m_mod_storage_database = openModStorageDatabase(m_path_world);
 	m_mod_storage_database->beginSave();
@@ -500,6 +504,9 @@ void Server::init()
 		// Create rollback manager
 		m_rollback = new RollbackManager(m_path_world, this);
 	}
+
+	// Bake custom control definitions
+	m_custom_controls->bakeDefinitions();
 
 	// Give environment reference to scripting api
 	m_script->initializeEnvironment(m_env);

@@ -1,6 +1,11 @@
 local S = minetest.get_translator("testcustomcontrols")
 
-local category = S("Cool stuff")
-local key = "testcustomcontrols:launch"
-local sensible_default_qwerty = "Left Ctrl"
-minetest.register_custom_control(category, key, sensible_default_qwerty)
+minetest.register_custom_control("testcustomcontrols:launch", {
+	title = S("Launch"),
+	category = S("Cool stuff"),
+	description = S("Launches you into the air.")
+	default_binds = {
+		kbm = "Left Ctrl",
+		controller = "LB"
+	}
+})

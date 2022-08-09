@@ -38,6 +38,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 #include "serverenvironment.h"
 #include "clientiface.h"
 #include "chatmessage.h"
+#include "custom_controls.h"
 #include "translation.h"
 #include <string>
 #include <list>
@@ -384,6 +385,9 @@ public:
 
 	// Data transferred into async envs at init time
 	std::unique_ptr<PackedValue> m_async_globals_data;
+
+	// Definitions of custom controls
+	std::unique_ptr<ServerCustomControlManager> m_custom_controls;
 
 	// Bind address
 	Address m_bind_addr;
