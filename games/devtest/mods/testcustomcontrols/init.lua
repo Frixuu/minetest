@@ -17,7 +17,5 @@ minetest.register_globalstep(function(delta)
 		if controls["testcustomcontrols:launch"] == true then
 			player:add_velocity(vector.new(0.0, 50.0, 0.0))
 		end
-		print(player:get_player_name()
-			.. ": " .. dump(player:get_custom_controls()))
 	end
 end)

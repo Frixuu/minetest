@@ -29,6 +29,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 #include "client/inputhandler.h"
 #include "client/tile.h"     // For TextureSource
 #include "client/keys.h"
+#include "client/keycode.h"
 #include "client/joystick_controller.h"
 #include "clientmap.h"
 #include "clouds.h"
@@ -2530,6 +2531,30 @@ void Game::updatePlayerControl(const CameraOrientation &cam)
 #endif
 
 	client->setPlayerControl(control);
+
+	auto input_handler = dynamic_cast<RealInputHandler*>(input);
+	if (input_handler == nullptr)
+		return;
+
+	auto input_receiver = input_handler->m_receiver;
+	if (input_receiver == nullptr)
+		return;
+
+	std::vector<u8> custom_state;
+	auto controls = client->getCustomControls();
+	custom_state.resize(controls->m_definitions_by_index.size(), 0);
+	for (auto &entry : controls->m_indices_by_event) {
+		auto index = entry.second;
+		auto key_name = controls->m_definitions_by_index.at(index).default_bind_kbm;
+		infostream << "CHECKING KEY " << key_name << "..." << std::endl;
+		KeyPress kp(key_name.c_str());
+		if (input_receiver->IsKeyDown(kp)) {
+			auto index = entry.second;
+			custom_state[index] = static_cast<u8>(255);
+		}
+	}
+
+	player->custom_control_state = custom_state;
 
 	//tt.stop();
 }

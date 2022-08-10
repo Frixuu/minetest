@@ -33,13 +33,6 @@ public:
 		BaseException(s) {};
 };
 
-struct table_key {
-	const char *Name;
-	irr::EKEY_CODE Key;
-	wchar_t Char; // L'\0' means no character assigned
-	const char *LangName; // NULL means it doesn't have a human description
-};
-
 #define DEFINEKEY1(x, lang) /* Irrlicht key without character */ \
 	{ #x, irr::x, L'\0', lang },
 #define DEFINEKEY2(x, ch, lang) /* Irrlicht key with character */ \

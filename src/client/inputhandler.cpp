@@ -113,7 +113,7 @@ bool MyEventReceiver::OnEvent(const SEvent &event)
 	// Remember whether each key is down or up
 	if (event.EventType == irr::EET_KEY_INPUT_EVENT) {
 		const KeyPress &keyCode = event.KeyInput;
-		if (keysListenedFor[keyCode]) {
+		//if (keysListenedFor[keyCode]) {
 			if (event.KeyInput.PressedDown) {
 				if (!IsKeyDown(keyCode))
 					keyWasPressed.set(keyCode);
@@ -128,7 +128,7 @@ bool MyEventReceiver::OnEvent(const SEvent &event)
 			}
 
 			return true;
-		}
+		//}
 
 #ifdef HAVE_TOUCHSCREENGUI
 	} else if (m_touchscreengui && event.EventType == irr::EET_TOUCH_INPUT_EVENT) {

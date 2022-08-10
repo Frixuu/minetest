@@ -61,6 +61,16 @@ protected:
 extern const KeyPress EscapeKey;
 extern const KeyPress CancelKey;
 
+struct table_key
+{
+	const char *Name;
+	irr::EKEY_CODE Key;
+	wchar_t Char;		  // L'\0' means no character assigned
+	const char *LangName; // NULL means it doesn't have a human description
+};
+
+struct table_key lookup_keykey(irr::EKEY_CODE key);
+
 // Key configuration getter
 KeyPress getKeySetting(const char *settingname);
 

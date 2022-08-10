@@ -1864,4 +1864,6 @@ void Server::handleCommand_CustomControl(NetworkPacket* pkt)
 	if (player != nullptr) {
 		player->custom_control_state = state;
 	}
+
+	infostream << "Received state of " << count << " actions" << std::endl;
 }

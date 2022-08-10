@@ -22,6 +22,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 #include "irrlichttypes_extrabloated.h"
 #include "joystick_controller.h"
 #include <list>
+#include "game.h"
 #include "keycode.h"
 #include "renderingengine.h"
 
@@ -29,6 +30,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 #include "gui/touchscreengui.h"
 #endif
 
+class Game;
 class InputHandler;
 
 /****************************************************************************
@@ -396,6 +398,7 @@ public:
 	}
 
 private:
+	friend class Game;
 	MyEventReceiver *m_receiver = nullptr;
 	v2s32 m_mousepos;
 };

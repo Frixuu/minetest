@@ -22,12 +22,14 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 #include "client/client.h"
 #include "client/keycode.h"
 #include "script/lua_api/l_object.h"
+#include "client/game.h"
 #include "server.h"
 #include <map>
 #include <string>
 #include <unordered_map>
 #include <vector>
 
+class Game;
 class KeyPress;
 
 struct CustomControlDefinition
@@ -60,6 +62,7 @@ class ClientCustomControlManager final
 {
 private:
 	friend class Client;
+	friend class Game;
 	std::vector<CustomControlDefinition> m_definitions_by_index;
 	std::map<irr::EKEY_CODE, size_t> m_indices_by_event;
 	void clear(size_t hint);

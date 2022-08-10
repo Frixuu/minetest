@@ -444,6 +444,12 @@ public:
 	{
 		return m_env.getLocalPlayer()->formspec_prepend;
 	}
+
+	const ClientCustomControlManager *getCustomControls() const
+	{
+		return m_custom_controls.get();
+	}
+
 private:
 	void loadMods();
 
