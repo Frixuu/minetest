@@ -1055,8 +1055,8 @@ enum ToServerCommand
 
 		std::string bytes_A
 		u8 current_login_based_on : on which version of the password's
-		                            hash this login is based on (0 legacy hash,
-		                            or 1 directly the password)
+									hash this login is based on (0 legacy hash,
+									or 1 directly the password)
 	*/
 
 	TOSERVER_SRP_BYTES_M = 0x52,
@@ -1066,7 +1066,13 @@ enum ToServerCommand
 		std::string bytes_M
 	*/
 
-	TOSERVER_NUM_MSG_TYPES = 0x53,
+	TOSERVER_CUSTOM_CONTROLS = 0x53,
+	/*
+		u16 count
+		u8[count] state
+	*/
+
+	TOSERVER_NUM_MSG_TYPES = 0x54,
 };
 
 enum AuthMechanism

@@ -197,6 +197,7 @@ public:
 	void handleCommand_SrpBytesA(NetworkPacket* pkt);
 	void handleCommand_SrpBytesM(NetworkPacket* pkt);
 	void handleCommand_HaveMedia(NetworkPacket *pkt);
+	void handleCommand_CustomControl(NetworkPacket *pkt);
 
 	void ProcessData(NetworkPacket *pkt);
 

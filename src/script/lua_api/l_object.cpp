@@ -1396,6 +1396,36 @@ int ObjectRef::l_get_player_control(lua_State *L)
 	return 1;
 }
 
+// get_custom_controls(self)
+int ObjectRef::l_get_custom_controls(lua_State *L)
+{
+	NO_MAP_LOCK_REQUIRED;
+	ObjectRef *ref = checkobject(L, 1);
+	RemotePlayer *player = getplayer(ref);
+
+	lua_newtable(L);
+	if (player == nullptr)
+		return 1;
+
+	auto server = getServer(L);
+	if (server == nullptr)
+		return 1;
+
+	auto state = player->custom_control_state;
+	auto controls = server->m_custom_controls->m_definitions;
+	size_t count = state.size();
+	if (controls.size() < count) {
+		count = controls.size();
+	}
+
+	for (size_t i = 0; i < count; i++) {
+		lua_pushboolean(L, state.at(i) >= 128);
+		lua_setfield(L, -2, controls.at(i).name.c_str());
+	}
+
+	return 1;
+}
+
 // get_player_control_bits(self)
 int ObjectRef::l_get_player_control_bits(lua_State *L)
 {
@@ -2463,6 +2493,7 @@ luaL_Reg ObjectRef::methods[] = {
 	luamethod(ObjectRef, get_formspec_prepend),
 	luamethod(ObjectRef, get_player_control),
 	luamethod(ObjectRef, get_player_control_bits),
+	luamethod(ObjectRef, get_custom_controls),
 	luamethod(ObjectRef, set_physics_override),
 	luamethod(ObjectRef, get_physics_override),
 	luamethod(ObjectRef, hud_add),

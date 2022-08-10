@@ -271,6 +271,9 @@ private:
 	// get_player_control(self)
 	static int l_get_player_control(lua_State *L);
 
+	// get_custom_controls(self)
+	static int l_get_custom_controls(lua_State *L);
+
 	// get_player_control_bits(self)
 	static int l_get_player_control_bits(lua_State *L);
 

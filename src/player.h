@@ -180,6 +180,7 @@ public:
 	std::string inventory_formspec;
 	std::string formspec_prepend;
 
+	std::vector<u8> custom_control_state;
 	PlayerControl control;
 	const PlayerControl& getPlayerControl() { return control; }
 	PlayerSettings &getPlayerSettings() { return m_player_settings; }

@@ -54,7 +54,7 @@ void ServerCustomControlManager::bakeDefinitions()
 	verbosestream << "Baked " << m_definitions.size() << " control definition(s)" << std::endl;
 }
 
-void ClientCustomControlManager::clear(size_t hint = 0)
+void ClientCustomControlManager::clear(size_t hint)
 {
 	m_indices_by_event.clear();
 	m_definitions_by_index.clear();
@@ -67,7 +67,7 @@ void ClientCustomControlManager::pushDefinition(CustomControlDefinition definiti
 	if (!definition.default_bind_kbm.empty()) {
 		KeyPress kp(definition.default_bind_kbm.c_str());
 		if (!kp.m_name.empty()) {
-			m_indices_by_event[kp] = m_definitions_by_index.size() - 1;
+			m_indices_by_event[kp.Key] = m_definitions_by_index.size() - 1;
 		}
 	}
 }

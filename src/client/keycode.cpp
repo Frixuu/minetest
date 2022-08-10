@@ -258,7 +258,8 @@ struct table_key lookup_keyname(const char *name)
 struct table_key lookup_key_by_lang_name(const char *name)
 {
 	for (const auto &table_key : table) {
-		if (strcmp(table_key.LangName, name) == 0)
+		auto lang_name = table_key.LangName;
+		if (lang_name != nullptr && strcmp(lang_name, name) == 0)
 			return table_key;
 	}
 

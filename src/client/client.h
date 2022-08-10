@@ -458,6 +458,7 @@ private:
 	void ReceiveAll();
 
 	void sendPlayerPos();
+	void sendCustomControls();
 
 	void deleteAuthData();
 	// helper method shared with clientpackethandler

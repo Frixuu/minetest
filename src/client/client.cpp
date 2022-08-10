@@ -536,6 +536,7 @@ void Client::step(float dtime)
 		{
 			counter = 0.0;
 			sendPlayerPos();
+			sendCustomControls();
 		}
 	}
 
@@ -1362,6 +1363,27 @@ void Client::sendPlayerPos()
 	NetworkPacket pkt(TOSERVER_PLAYERPOS, 12 + 12 + 4 + 4 + 4 + 1 + 1);
 
 	writePlayerPos(player, &map, &pkt);
+
+	Send(&pkt);
+}
+
+void Client::sendCustomControls()
+{
+	LocalPlayer *player = m_env.getLocalPlayer();
+	if (player == nullptr)
+		return;
+
+	// TODO(frixuu): Save bandwidth by not sending controls when they have not changed
+
+	size_t size = m_custom_controls->m_definitions_by_index.size();
+	NetworkPacket pkt(TOSERVER_CUSTOM_CONTROLS, 2 + size);
+
+	pkt << static_cast<u16>(size);
+	for (size_t i = 0; i < size; i++) {
+
+		// TODO(frixuu): read actual values
+		pkt << static_cast<u8>(128);
+	}
 
 	Send(&pkt);
 }

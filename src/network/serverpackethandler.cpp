@@ -1844,3 +1844,24 @@ void Server::handleCommand_HaveMedia(NetworkPacket *pkt)
 		}
 	}
 }
+
+void Server::handleCommand_CustomControl(NetworkPacket* pkt)
+{
+	const session_t peer_id = pkt->getPeerId();
+	RemotePlayer *player = m_env->getPlayer(peer_id);
+
+	std::vector<u8> state;
+	u16 count;
+	*pkt >> count;
+	state.reserve(count);
+
+	for (u16 i = 0; i < count; i++) {
+		u8 input_state;
+		*pkt >> input_state;
+		state.push_back(input_state);
+	}
+
+	if (player != nullptr) {
+		player->custom_control_state = state;
+	}
+}
