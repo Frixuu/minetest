@@ -1,8 +1,8 @@
 local S = minetest.get_translator("testcustomcontrols")
 
 minetest.register_custom_control("testcustomcontrols:launch", {
-	title = S("Launch"),
-	category = S("Cool stuff"),
+	title = "Launch yourself",
+	category = "Cool stuff from mods",
 	description = S("Launches you into the air."),
 	default_binds = {
 		kbm = "Left Control",

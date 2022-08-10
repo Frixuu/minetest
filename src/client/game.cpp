@@ -1712,8 +1712,18 @@ inline bool Game::handleCallbacks()
 	}
 
 	if (g_gamecallback->keyconfig_requested) {
-		(new GUIKeyChangeMenu(guienv, guiroot, -1,
-				      &g_menumgr, texture_src))->drop();
+		auto menu = new GUIKeyChangeMenu(guienv, guiroot, -1, &g_menumgr, texture_src);
+
+		if (client != nullptr) {
+			auto controls = client->getCustomControls();
+			auto definitions = controls->m_definitions_by_index;
+			for (size_t i = 0; i < definitions.size(); i++) {
+
+				menu->add_key(160 + i, wgettext(definitions.at(i).title.c_str()), "keymap_slot32");
+			}
+		}
+
+		menu->drop();
 		g_gamecallback->keyconfig_requested = false;
 	}
 

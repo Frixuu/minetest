@@ -23,12 +23,16 @@
 
 #include "irrlichttypes_extrabloated.h"
 #include "modalMenu.h"
+#include "../client/game.h"
 #include "gettext.h"
 #include "client/keycode.h"
+#include "script/lua_api/l_mainmenu.h"
 #include <string>
 #include <vector>
 
+class Game;
 class ISimpleTextureSource;
+class ModApiMainMenu;
 
 struct key_setting
 {
@@ -64,6 +68,8 @@ protected:
 	std::string getNameByID(s32 id) { return ""; }
 
 private:
+	friend class Game;
+	friend class ModApiMainMenu;
 	void init_keys();
 
 	bool resetMenu();

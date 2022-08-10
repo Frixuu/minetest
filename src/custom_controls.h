@@ -23,6 +23,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 #include "client/keycode.h"
 #include "script/lua_api/l_object.h"
 #include "client/game.h"
+#include "script/lua_api/l_mainmenu.h"
 #include "server.h"
 #include <map>
 #include <string>
@@ -63,6 +64,7 @@ class ClientCustomControlManager final
 private:
 	friend class Client;
 	friend class Game;
+	friend class ModApiMainMenu;
 	std::vector<CustomControlDefinition> m_definitions_by_index;
 	std::map<irr::EKEY_CODE, size_t> m_indices_by_event;
 	void clear(size_t hint);
