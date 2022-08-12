@@ -1889,7 +1889,7 @@ void Server::SendSetLighting(session_t peer_id, const Lighting &lighting)
 
 void Server::SendCustomControlDefs(session_t peer_id)
 {
-	NetworkPacket pkt(TOCLIENT_SEND_CUSTOM_CONTROL_DEFS, 0, peer_id);
+	NetworkPacket pkt(TOCLIENT_SEND_CUSTOM_INPUT_ACTION_DEFS, 0, peer_id);
 
 	auto &definitions = m_custom_controls->m_definitions;
 	pkt << static_cast<u16>(definitions.size());

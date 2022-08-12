@@ -573,8 +573,8 @@ int ModApiServer::l_register_async_dofile(lua_State *L)
 	return 1;
 }
 
-// register_custom_control(name, [options]) -> success
-int ModApiServer::l_register_custom_control(lua_State *L)
+// register_input_action(name, [options]) -> success
+int ModApiServer::l_register_input_action(lua_State *L)
 {
 	NO_MAP_LOCK_REQUIRED;
 
@@ -583,7 +583,7 @@ int ModApiServer::l_register_custom_control(lua_State *L)
 		throw new LuaError("Cannot modify custom controls after the server has started");
 
 	luaL_checktype(L, 1, LUA_TSTRING);
-	CustomControlDefinition definition{};
+	InputActionDefinition definition{};
 	definition.name = readParam<std::string>(L, 1);
 
 	if (lua_istable(L, 2)) {
@@ -666,7 +666,7 @@ void ModApiServer::Initialize(lua_State *L, int top)
 	API_FCT(register_async_dofile);
 	API_FCT(serialize_roundtrip);
 
-	API_FCT(register_custom_control);
+	API_FCT(register_input_action);
 }
 
 void ModApiServer::InitializeAsync(lua_State *L, int top)

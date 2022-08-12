@@ -1376,7 +1376,7 @@ void Client::sendCustomControls()
 	// TODO(frixuu): Save bandwidth by not sending controls when they have not changed
 
 	size_t size = player->custom_control_state.size();
-	NetworkPacket pkt(TOSERVER_CUSTOM_CONTROLS, 2 + size);
+	NetworkPacket pkt(TOSERVER_CUSTOM_INPUT_ACTIONS_FULL_STATE, 2 + size);
 
 	pkt << static_cast<u16>(size);
 	for (size_t i = 0; i < size; i++) {

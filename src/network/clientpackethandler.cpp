@@ -1776,7 +1776,7 @@ void Client::handleCommand_SetCustomControlDefs(NetworkPacket *pkt)
 
 	for (u16 i = 0; i < count; i++) {
 
-		CustomControlDefinition definition{};
+		InputActionDefinition definition{};
 
 		u8 reserved;
 		*pkt >> reserved;

@@ -27,7 +27,7 @@ bool ServerCustomControlManager::isBaked()
 	return m_baked;
 }
 
-bool ServerCustomControlManager::tryRegister(CustomControlDefinition definition)
+bool ServerCustomControlManager::tryRegister(InputActionDefinition definition)
 {
 	if (isBaked())
 		return false;
@@ -61,7 +61,7 @@ void ClientCustomControlManager::clear(size_t hint)
 	m_definitions_by_index.reserve(hint);
 }
 
-void ClientCustomControlManager::pushDefinition(CustomControlDefinition definition)
+void ClientCustomControlManager::pushDefinition(InputActionDefinition definition)
 {
 	m_definitions_by_index.push_back(definition);
 	if (!definition.default_bind_kbm.empty()) {

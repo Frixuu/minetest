@@ -33,7 +33,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 class Game;
 class KeyPress;
 
-struct CustomControlDefinition
+struct InputActionDefinition
 {
 	std::string name;
 	std::string title;
@@ -48,13 +48,13 @@ class ServerCustomControlManager final
 {
 public:
 	bool isBaked();
-	bool tryRegister(CustomControlDefinition definition);
+	bool tryRegister(InputActionDefinition definition);
 
 private:
 	friend class Server;
 	friend class ObjectRef;
-	std::unordered_map<std::string, CustomControlDefinition> m_definitions_unbaked;
-	std::vector<CustomControlDefinition> m_definitions;
+	std::unordered_map<std::string, InputActionDefinition> m_definitions_unbaked;
+	std::vector<InputActionDefinition> m_definitions;
 	bool m_baked = false;
 	void bakeDefinitions();
 };
@@ -65,8 +65,8 @@ private:
 	friend class Client;
 	friend class Game;
 	friend class ModApiMainMenu;
-	std::vector<CustomControlDefinition> m_definitions_by_index;
+	std::vector<InputActionDefinition> m_definitions_by_index;
 	std::map<irr::EKEY_CODE, size_t> m_indices_by_event;
 	void clear(size_t hint);
-	void pushDefinition(CustomControlDefinition definition);
+	void pushDefinition(InputActionDefinition definition);
 };

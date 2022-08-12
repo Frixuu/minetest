@@ -832,7 +832,7 @@ enum ToClientCommand
 		f32 shadow_intensity
 	*/
 
-	TOCLIENT_SEND_CUSTOM_CONTROL_DEFS = 0x64,
+	TOCLIENT_SEND_CUSTOM_INPUT_ACTION_DEFS = 0x64,
 	/*
 		u16 count // of definitions
 		for each definition
@@ -1066,10 +1066,11 @@ enum ToServerCommand
 		std::string bytes_M
 	*/
 
-	TOSERVER_CUSTOM_CONTROLS = 0x53,
+	TOSERVER_CUSTOM_INPUT_ACTIONS_FULL_STATE = 0x53,
 	/*
-		u16 count
-		u8[count] state
+		u16 count of custom actions the client knows about
+		for each such action:
+			u8 current value - 0 or 255 for digital inputs, full range for analog
 	*/
 
 	TOSERVER_NUM_MSG_TYPES = 0x54,
